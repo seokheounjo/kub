@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: usafe-guarantee
+  datasource:
+    url: jdbc:h2:mem:guarantee;MODE=MySQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driverClassName: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+  mustache:
+    suffix: .mustache
+  h2:
+    console:
+      enabled: true
+
+server:
+  port: 8080
+
+app:
+  version: ${APP_VERSION:0.0.2}
+  title: USAFE Guarantee – GitOps Delivery Demo

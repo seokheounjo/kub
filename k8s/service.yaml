@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: guarantee-service
+  namespace: guarantee
+  labels:
+    app: guarantee
+spec:
+  selector:
+    app: guarantee
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
+    protocol: TCP
+  type: ClusterIP
