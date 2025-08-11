@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Guarantee Application CI/CD
 
 Spring Boot 기반 guarantee 서비스를 Docker + Kubernetes + ArgoCD로 구성한 완전한 CI/CD 파이프라인입니다.
@@ -155,3 +156,6 @@ ArgoCD UI에서 애플리케이션 배포 상태와 동기화 히스토리를 �
 - **빌드 도구**: Gradle
 - **컨테이너**: Docker + Kubernetes
 - **CD 도구**: ArgoCD
+=======
+# kub
+>>>>>>> f6a5e1179badfa35d78cf83c292cf6ed2f642139
