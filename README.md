@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Guarantee Application CI/CD
 
 Spring Boot 기반 guarantee 서비스를 Docker + Kubernetes + ArgoCD로 구성한 완전한 CI/CD 파이프라인입니다.
@@ -109,19 +108,13 @@ kubectl port-forward svc/argocd-server -n argocd 8080:443
 CI/CD 파이프라인 실행을 위해 다음 시크릿 설정 필요:
 
 ```
-DOCKER_USERNAME: Docker Hub 사용자명
-DOCKER_PASSWORD: Docker Hub 패스워드
+DOCKER_USERNAME: procof
+DOCKER_PASSWORD: dckr_pat_JZRdn3L4g5aPUA1dGeVdoTIppx0
 ```
 
-### Git 저장소 URL 업데이트
+### Git 저장소 URL
 
-`argocd/application.yaml` 파일에서 실제 Git 저장소 URL로 변경:
-
-```yaml
-spec:
-  source:
-    repoURL: https://github.com/your-username/kub.git  # 실제 URL로 변경
-```
+ArgoCD는 현재 `https://github.com/seokheounjo/kub` 저장소로 설정되어 있습니다.
 
 ## 📊 모니터링
 
@@ -156,6 +149,3 @@ ArgoCD UI에서 애플리케이션 배포 상태와 동기화 히스토리를 �
 - **빌드 도구**: Gradle
 - **컨테이너**: Docker + Kubernetes
 - **CD 도구**: ArgoCD
-=======
-# kub
->>>>>>> f6a5e1179badfa35d78cf83c292cf6ed2f642139
