@@ -2,9 +2,9 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ clean-main, develop ]
   pull_request:
-    branches: [ main ]
+    branches: [ clean-main ]
 
 env:
   REGISTRY: docker.io
@@ -40,7 +40,7 @@ jobs:
   build-and-push:
     needs: test
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/clean-main'
     
     steps:
     - uses: actions/checkout@v4
@@ -77,7 +77,7 @@ jobs:
   update-manifest:
     needs: build-and-push
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/clean-main'
     
     steps:
     - uses: actions/checkout@v4
