@@ -108,8 +108,8 @@ kubectl port-forward svc/argocd-server -n argocd 8080:443
 CI/CD 파이프라인 실행을 위해 다음 시크릿 설정 필요:
 
 ```
-DOCKER_USERNAME: procof
-DOCKER_PASSWORD: dckr_pat_JZRdn3L4g5aPUA1dGeVdoTIppx0
+DOCKER_USERNAME: Docker Hub 사용자명
+DOCKER_PASSWORD: Docker Hub 패스워드 또는 Access Token
 ```
 
 ### Git 저장소 URL
