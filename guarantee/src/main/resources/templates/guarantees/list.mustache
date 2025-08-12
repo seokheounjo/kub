@@ -24,20 +24,78 @@
         <a class="btn btn-success" href="/guarantees/new">+ 새 보증서</a>
     </div>
 
+    <!-- 검색 폼 -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">🔍 보증서 검색</h5>
+            <form method="get" action="/guarantees/list">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label for="orderId" class="form-label">주문번호</label>
+                        <input type="text" class="form-control" id="orderId" name="orderId" 
+                               value="{{searchOrderId}}" placeholder="주문번호로 검색">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="buyerName" class="form-label">구매자명</label>
+                        <input type="text" class="form-control" id="buyerName" name="buyerName" 
+                               value="{{searchBuyerName}}" placeholder="구매자명으로 검색">
+                    </div>
+                    <div class="col-md-4 d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary me-2">검색</button>
+                        <a href="/guarantees/list" class="btn btn-secondary">전체보기</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
     {{#guarantees}}
         <table class="table table-hover align-middle">
-            <thead>
-            <tr><th>ID</th><th>주문번호</th><th>구매자</th><th>금액</th><th>상태</th><th>발급시각</th></tr>
+            <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>보증서번호</th>
+                <th>주문번호</th>
+                <th>구매자</th>
+                <th>금액</th>
+                <th>상태</th>
+                <th>발급시각</th>
+                <th>작업</th>
+            </tr>
             </thead>
             <tbody>
             {{#.}}
                 <tr>
                     <td>{{id}}</td>
+                    <td><code>{{guaranteeNumber}}</code></td>
                     <td>{{orderId}}</td>
                     <td>{{buyerName}}</td>
                     <td>{{amount}}</td>
-                    <td>{{status}}</td>
+                    <td>
+                        {{#status}}
+                            {{#ISSUED}}<span class="badge bg-success">발급완료</span>{{/ISSUED}}
+                            {{#CANCELLED}}<span class="badge bg-danger">취소됨</span>{{/CANCELLED}}
+                            {{^ISSUED}}{{^CANCELLED}}<span class="badge bg-secondary">{{status}}</span>{{/CANCELLED}}{{/ISSUED}}
+                        {{/status}}
+                    </td>
                     <td>{{issuedAt}}</td>
+                    <td>
+                        <div class="btn-group" role="group">
+                            <a href="/guarantees/{{id}}/edit" class="btn btn-sm btn-outline-primary">수정</a>
+                            {{#status}}
+                                {{#ISSUED}}
+                                <form method="post" action="/guarantees/{{id}}/cancel" style="display:inline;">
+                                    <button type="submit" class="btn btn-sm btn-outline-warning" 
+                                            onclick="return confirm('보증서를 취소하시겠습니까?')">취소</button>
+                                </form>
+                                {{/ISSUED}}
+                            {{/status}}
+                            <form method="post" action="/guarantees/{{id}}/delete" style="display:inline;">
+                                <button type="submit" class="btn btn-sm btn-outline-danger" 
+                                        onclick="return confirm('정말 삭제하시겠습니까?')">삭제</button>
+                            </form>
+                        </div>
+                    </td>
                 </tr>
             {{/.}}
             </tbody>
@@ -45,7 +103,20 @@
     {{/guarantees}}
 
     {{^guarantees}}
-        <div class="alert alert-info">아직 발급된 보증서가 없습니다. 우측 상단 <b>+ 새 보증서</b>를 눌러 등록하세요.</div>
+        <div class="alert alert-info">
+            {{#searchOrderId}}{{#searchBuyerName}}
+                "{{searchOrderId}}", "{{searchBuyerName}}"로 검색한 결과가 없습니다.
+            {{/searchBuyerName}}{{/searchOrderId}}
+            {{#searchOrderId}}{{^searchBuyerName}}
+                "{{searchOrderId}}"로 검색한 결과가 없습니다.
+            {{/searchBuyerName}}{{/searchOrderId}}
+            {{^searchOrderId}}{{#searchBuyerName}}
+                "{{searchBuyerName}}"로 검색한 결과가 없습니다.
+            {{/searchBuyerName}}{{/searchOrderId}}
+            {{^searchOrderId}}{{^searchBuyerName}}
+                아직 발급된 보증서가 없습니다. 우측 상단 <b>+ 새 보증서</b>를 눌러 등록하세요.
+            {{/searchBuyerName}}{{/searchOrderId}}
+        </div>
     {{/guarantees}}
 </main>
 
